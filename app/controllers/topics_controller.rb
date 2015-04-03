@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   def index
-    @Topics = Topic.all
+    @topics = Topic.all
   end
 
   def show
@@ -22,6 +22,7 @@ class TopicsController < ApplicationController
     else
       flash[:error] = "Error creating topic. Please try again."
       render :new
+    end
   end
     
     def update
@@ -30,6 +31,7 @@ class TopicsController < ApplicationController
           redirect_to @topic, notice: 'Topic successfully updated.'
       else
         render action: 'edit'
+       end
     end
 end
 
