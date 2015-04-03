@@ -2,6 +2,7 @@ class IncomingController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
+    puts "INCOMING PARAMS HERE: #{params}"
     @user = User.find_by(email: params[:sender])
     @topic = Topic.find_by(user_id: @user, title: params[:subject])
     @url = "http://#{params["body-plain"]}"
@@ -10,8 +11,7 @@ class IncomingController < ApplicationController
 
     @topic = Topic.create(title: params[:title], user_id: @user.id) if @topic.nil?
 
-    @bookmark = Bookmark.create(Bookmark.setEmbedly(params['body-plain']))
-    @bookmark.update_attributes(topic_id: @topic.id)
+    @bookmark = Bookmark.create(topic: @topic, url: @url)
 
     head 200
   end
