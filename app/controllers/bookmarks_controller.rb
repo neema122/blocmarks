@@ -1,23 +1,22 @@
 class BookmarksController < ApplicationController
+  before_action :set_topic
+  before_action :set_bookmark, except: [:new, :create, :index]
+  
   def show
-    @topic = Topic.find(params[:topic_id])
-    @bookmark = Bookmark.find(params[:id])
   end
 
   def new
-    @topic = Topic.find(params[:topic_id])
     @bookmark = current_user.bookmarks.new
   end
 
   def edit
-    @topic = Topic.find(params[:topic_id])
-    @bookmark = Bookmark.find(params[:id])
   end
   
   def create
-    @topic = Topic.find(params[:topic_id])
-    @bookmark = current_user.bookmarks.build(params.require(:bookmark).permit(:title))
+    @bookmark = current_user.bookmarks.build(bookmark_params)
     @bookmark.topic = @topic
+    
+    authorize @bookmark
 
     if @bookmark.save
       flash[:notice] = "Bookmark was saved."
@@ -28,9 +27,11 @@ class BookmarksController < ApplicationController
     end
   end
   
-  def update@topic = Topic.find(params[:topic_id])
-    @bookmark = Bookmark.find(params[:id])
-    if @bookmark.update_attributes(params.require(:bookmark).permit(:title))
+  def update
+    
+    authorize @bookmark
+    
+    if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark was updated."
       redirect_to [@topic, @bookmark]
     else
@@ -42,5 +43,19 @@ class BookmarksController < ApplicationController
   
   def index
     @bookmarks = current_user.bookmarks.all
+  end
+  
+  private 
+  
+  def set_topic
+    @topic = Topic.find(params[:topic_id])
+  end
+  
+  def set_bookmark
+    @bookmark = Bookmark.find(params[:id])
+  end
+  
+  def bookmark_params
+    params.require(:bookmark).permit(:title)
   end
 end
