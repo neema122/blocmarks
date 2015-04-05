@@ -48,3 +48,4 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'figaro', '1.0'
 gem 'bootstrap-sass'
+gem 'pundit'
