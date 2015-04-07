@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :bookmarks, through: :topics
   has_many :likes
   
-  def liked(post)
+  def liked(bookmark)
      likes.where(bookmark_id: bookmark.id).first
    end
   

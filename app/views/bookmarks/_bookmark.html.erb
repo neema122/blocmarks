@@ -1,1 +1,4 @@
-<li><%= bookmark.title %></li>
+<li>
+  <%= bookmark.url %>
+  <%= render partial: "likes/like", locals: {bookmark: bookmark} %>
+</li>

@@ -13,7 +13,7 @@ class LikesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
+      format.html { redirect_to :back}
       format.js
     end
   end
@@ -30,7 +30,7 @@ class LikesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html
+      format.html { redirect_to :back}
       format.js
     end
   end

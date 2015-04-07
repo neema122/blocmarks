@@ -1,2 +1,4 @@
 <h1><%= @topic.title %></h1>
-<p><%= @topic.body %></p>
+<ul>
+<%= render @topic.bookmarks %>
+</ul>
