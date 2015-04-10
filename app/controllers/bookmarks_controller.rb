@@ -1,3 +1,6 @@
+require 'embedly'
+require 'json'
+
 class BookmarksController < ApplicationController
   before_action :set_topic
   before_action :set_bookmark, except: [:new, :create, :index]
