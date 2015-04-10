@@ -1,4 +1,5 @@
 <li>
+  <%= image_tag(bookmark.embedly_url) if bookmark.embedly_url.present? %>
   <%= bookmark.url %>
   <%= render partial: "likes/like", locals: {bookmark: bookmark} %>
 </li>
